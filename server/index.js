@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import { connectDB } from './config/db.js';
 import authRoutes from './routes/auth.routes.js';
+import courseRoutes from './routes/course.routes.js'; 
 
 const app = express();
 dotenv.config();
@@ -15,7 +16,8 @@ app.get('/', (req, res) => {
 
 const PORT = process.env.PORT || 3000;
 
-app.use('/v1/api/auth', authRoutes);
+app.use('/api/v1/auth', authRoutes);
+app.use('/api/v1/courses', courseRoutes);
 
 connectDB()
     .then(() => {
