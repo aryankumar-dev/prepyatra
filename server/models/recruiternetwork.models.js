@@ -1,6 +1,9 @@
 import mongoose from "mongoose";
+import { StatusEnum } from "../utils/constants.js";
+import { AvailableStatus } from "../utils/constants.js";
 
-const prepLogSchema = new mongoose.Schema({
+
+const RecruiterNetworkSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
@@ -28,16 +31,16 @@ const prepLogSchema = new mongoose.Schema({
     },
     status: {
         type: String,
-        required: false,
-        enum: ['applied', 'interviewing', 'offer', 'rejected'],
-        default: 'applied',
+        enum: AvailableStatus,
+        default: StatusEnum.SCREENING,
+        trim: true,
     },
     followUpDate: {
         type: Date,
         required: false,
         default: null,
     },
-    lastintreviewDate: {
+    lastIntreviewDate: {
         type: Date,
         required: false,
         default: null,
@@ -62,4 +65,6 @@ const prepLogSchema = new mongoose.Schema({
     timestamps: true,
 });
 
-export const PrepLog = mongoose.model("PrepLog", prepLogSchema);
+export const RecruiterNetwork = mongoose.model("RecruiterNetwork", RecruiterNetworkSchema);
+
+

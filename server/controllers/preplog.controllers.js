@@ -31,7 +31,7 @@ const deletePrepLog = asyncHandler(async (req, res) => {
     const { id } = req.params;
    
 
-    const prepLog = await PrepLog.findOneAndDelete({ id });
+    const prepLog = await PrepLog.findOneAndDelete({ _id: id });
 
     if (!prepLog) {
         throw new ApiError(404, "Prep log not found");

@@ -105,6 +105,133 @@ const preplogEditValidator = () => {
 };
 
 
+const recruiterNetworkCreateValidator = () => {
+  return [
+    body("name")
+      .trim()
+      .notEmpty()
+      .withMessage("Name is required")
+      .isLength({ min: 3 })
+      .withMessage("Name must be at least 3 characters long"),
+    body("email")
+      .optional()
+      .trim()
+      .isEmail()
+      .withMessage("Email is invalid"),
+    body("phone")
+      .optional()
+      .trim()
+      .isMobilePhone("any")
+      .withMessage("Phone number is invalid"),
+    body("company")
+      .optional()
+      .trim()
+      .notEmpty()
+      .withMessage("Company is required")
+      .isLength({ min: 3 })
+      .withMessage("Company must be at least 3 characters long"),
+    body("appliedFor")
+      .optional()
+      .trim()
+      .notEmpty()
+      .withMessage("Applied for is required")
+      .isLength({ min: 3 })
+      .withMessage("Applied for must be at least 3 characters long"),
+    body("status")
+      .optional()             
+      .trim()
+      .notEmpty()
+      .withMessage("Status is required")
+      .isIn(["applied", "interviewing", "offer", "rejected"])
+      .withMessage("Status must be one of the following: applied, interviewing, offer, rejected"),
+    body("followUpDate")
+      .optional()     
+      .isISO8601()
+      .withMessage("Follow-up date must be a valid date in ISO 8601 format"),
+    body("lastInterviewDate")
+      .optional()   
+      .isISO8601()
+      .withMessage("Last interview date must be a valid date in ISO 8601 format"),
+    body("link")
+      .optional()
+      .trim()
+      .isURL()  
+      .withMessage("Link must be a valid URL"),
+    body("comments")
+      .optional()
+      .trim()
+      .notEmpty()
+      .withMessage("Comments are required")
+      .isLength({ min: 3 })
+      .withMessage("Comments must be at least 3 characters long"),
+  ];
+};    
+
+
+const recruiterNetworkEditValidator = () => {
+  return [
+    body("name")
+      .optional()
+      .trim()
+      .notEmpty()
+      .withMessage("Name is required")
+      .isLength({ min: 3 })
+      .withMessage("Name must be at least 3 characters long"),
+    body("email")
+      .optional()
+      .trim()
+      .isEmail()
+      .withMessage("Email is invalid"),
+    body("phone")
+      .optional()
+      .trim()
+      .isMobilePhone("any")
+      .withMessage("Phone number is invalid"),
+    body("company")
+      .optional()
+      .trim()
+      .notEmpty()
+      .withMessage("Company is required")
+      .isLength({ min: 3 })
+      .withMessage("Company must be at least 3 characters long"),
+    body("appliedFor")
+      .optional()
+      .trim()
+      .notEmpty()
+      .withMessage("Applied for is required")
+      .isLength({ min: 3 })
+      .withMessage("Applied for must be at least 3 characters long"),
+    body("status")
+      .optional()             
+      .trim()
+      .notEmpty()
+      .withMessage("Status is required")
+      .isIn(["applied", "interviewing", "offer", "rejected"])
+      .withMessage("Status must be one of the following: applied, interviewing, offer, rejected"),
+    body("followUpDate")
+      .optional()     
+      .isISO8601()
+      .withMessage("Follow-up date must be a valid date in ISO 8601 format"),
+    body("lastInterviewDate")
+      .optional()   
+      .isISO8601()
+      .withMessage("Last interview date must be a valid date in ISO 8601 format"),
+    body("link")
+      .optional()
+      .trim()
+      .isURL()  
+      .withMessage("Link must be a valid URL"),
+    body("comments")
+      .optional()
+      .trim()
+      .notEmpty()
+      .withMessage("Comments are required")
+      .isLength({ min: 3 })
+      .withMessage("Comments must be at least 3 characters long"),
+  ];
+}
+
+      
 export {
   userRegisterValidator,
   userLoginValidator,
@@ -112,4 +239,6 @@ export {
   courseEditValidator,
   preplogCreateValidator,
   preplogEditValidator,
+  recruiterNetworkCreateValidator,
+  recruiterNetworkEditValidator
 };

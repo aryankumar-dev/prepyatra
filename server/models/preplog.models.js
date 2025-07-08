@@ -27,4 +27,4 @@ const prepLogSchema = new mongoose.Schema({
     timestamps: true,
 });
 
-export const Preplog = mongoose.model("Preplog", prepLogSchema);
+export const PrepLog = mongoose.model("PrepLog", prepLogSchema);

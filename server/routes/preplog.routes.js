@@ -1,19 +1,31 @@
 import { Router } from "express";
-import { getAllPreplogs, createPreplog, editPreplog, deletePreplog,getPrepLogById } from "../controllers/preplog.controllers.js";
+
+import {
+  getPrepLogs,
+  createPrepLog,
+  updatePrepLog,
+  deletePrepLog,
+  getPrepLogById,
+} from "../controllers/preplog.controllers.js";
 import { preplogCreateValidator, preplogEditValidator } from "../validators/index.js";
 import { validate } from "../middlewares/validator.middleware.js";
+import checkUser from "../middlewares/checkuser.middleware.js";
+
 
 const router = Router();
 
-router.get("/", getAllPreplogs);
-
-router.post("/", preplogCreateValidator(), validate, createPreplog);
+// Middleware to check if the user is authenticated
 
 
-router.put("/:id", preplogEditValidator(), validate, editPreplog);
+router.get("/", checkUser, getPrepLogs);
 
-router.delete("/:id", deletePreplog);
+router.post("/", preplogCreateValidator(), validate, checkUser,createPrepLog);
 
-router.get("/:id", getPrepLogById);
+
+router.put("/:id", preplogEditValidator(), validate,checkUser, updatePrepLog);
+
+router.delete("/:id",checkUser, deletePrepLog);
+
+router.get("/:id",checkUser, getPrepLogById);
 
 export default router;

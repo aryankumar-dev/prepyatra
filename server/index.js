@@ -5,11 +5,14 @@ import { connectDB } from './config/db.js';
 import authRoutes from './routes/auth.routes.js';
 import courseRoutes from './routes/cource.routes.js'; 
 import preplogRoutes from './routes/preplog.routes.js'; 
+import cookieParser from "cookie-parser";
+import recruiterNetworkRoutes from './routes/recruiterNetwork.routes.js'; 
 
 const app = express();
 dotenv.config();
 app.use(cors());
 app.use(express.json());
+app.use(cookieParser());
 
 app.get('/', (req, res) => {
     res.send('Hello World!');
@@ -20,6 +23,7 @@ const PORT = process.env.PORT || 3000;
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/courses', courseRoutes);
 app.use('/api/v1/preplogs', preplogRoutes);
+app.use('/api/v1/recruiternetwork', recruiterNetworkRoutes);
 
 connectDB()
     .then(() => {
