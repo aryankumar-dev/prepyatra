@@ -27,7 +27,13 @@ const userSchema = new Schema(
         password: {
             type: String,
             required: [true, "Password is required"],
-        }, refreshToken: {
+        }, 
+        courceid:{
+            type: Schema.Types.ObjectId,
+            ref: "Course",
+            required: false,
+        },
+        refreshToken: {
             type: String,
         },
         forgotPasswordToken: {

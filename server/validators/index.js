@@ -38,4 +38,78 @@ const userLoginValidator = () => {
   ];
 };
 
-export { userRegisterValidator, userLoginValidator };
+const courseCreateValidator = () => {
+  return [
+    body("title")
+      .trim()
+      .notEmpty()
+      .withMessage("Title is required")
+      .isLength({ min: 3 })
+      .withMessage("Title must be at least 3 characters long"),
+  ];
+}
+
+const courseEditValidator = () => {
+  return [
+    body("title")
+      .optional()
+      .trim()
+      .notEmpty()
+      .withMessage("Title is required")
+      .isLength({ min: 3 })
+      .withMessage("Title must be at least 3 characters long"),
+  ];
+};
+
+const preplogCreateValidator = () => {
+  return [
+    body("title")
+      .trim()
+      .notEmpty()
+      .withMessage("Title is required")
+      .isLength({ min: 3 })
+      .withMessage("Title must be at least 3 characters long"),
+    body("description")
+      .trim()
+      .notEmpty()
+      .withMessage("Description is required"),
+    body("timespend")
+      .isNumeric()
+      .withMessage("Time spent must be a number")
+      .custom(value => value >= 0)
+      .withMessage("Time spent cannot be negative"),
+  ];
+};
+
+const preplogEditValidator = () => {
+  return [
+    body("title")
+      .optional()
+      .trim()
+      .notEmpty()
+      .withMessage("Title is required")
+      .isLength({ min: 3 })
+      .withMessage("Title must be at least 3 characters long"),
+    body("description")
+      .optional()
+      .trim()
+      .notEmpty()
+      .withMessage("Description is required"),
+    body("timespend")
+      .optional()
+      .isNumeric()
+      .withMessage("Time spent must be a number")
+      .custom(value => value >= 0)
+      .withMessage("Time spent cannot be negative"),
+  ];
+};
+
+
+export {
+  userRegisterValidator,
+  userLoginValidator,
+  courseCreateValidator,
+  courseEditValidator,
+  preplogCreateValidator,
+  preplogEditValidator,
+};
