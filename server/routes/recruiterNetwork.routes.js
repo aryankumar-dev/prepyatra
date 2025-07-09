@@ -20,7 +20,8 @@ router.post("/create",
     createRecruiterNetwork
 );  
 
-router.get("/", checkUser, getRecruiterNetwork);
+router.get("/getall", checkUser, getRecruiterNetwork);
+
 router.put(
     "/:id",
     checkUser,
@@ -29,8 +30,8 @@ router.put(
     updateRecruiterNetwork
 );
 router.delete("/:id", checkUser, deleteRecruiterNetwork);
-router.get("/:id", checkUser, getRecruiterNetworkById);
 
+router.get("/:id", checkUser, getRecruiterNetworkById);
 
 
 export default router;

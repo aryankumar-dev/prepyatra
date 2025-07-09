@@ -1,6 +1,5 @@
 import { body } from "express-validator";
 
-
 const userRegisterValidator = () => {
   return [
     body("email")
@@ -118,11 +117,11 @@ const recruiterNetworkCreateValidator = () => {
       .trim()
       .isEmail()
       .withMessage("Email is invalid"),
-    body("phone")
-      .optional()
-      .trim()
-      .isMobilePhone("any")
-      .withMessage("Phone number is invalid"),
+   body("phone")
+  .optional()
+  .trim()
+  .isMobilePhone("en-IN")  // Target Indian format
+  .withMessage("Phone number is invalid"),
     body("company")
       .optional()
       .trim()
@@ -182,11 +181,11 @@ const recruiterNetworkEditValidator = () => {
       .trim()
       .isEmail()
       .withMessage("Email is invalid"),
-    body("phone")
-      .optional()
-      .trim()
-      .isMobilePhone("any")
-      .withMessage("Phone number is invalid"),
+  body("phone")
+  .optional()
+  .trim()
+  .isMobilePhone("en-IN")  // Target Indian format
+  .withMessage("Phone number is invalid"),
     body("company")
       .optional()
       .trim()
