@@ -85,4 +85,29 @@ const loginUser = asyncHandler(async (req, res) => {
 
 });
 
-export { registerUser, loginUser };
+const logoutUser = asyncHandler(async (req, res) => {
+
+    const userid = req.user.id;
+    // find user and clear refresh token
+    const user = await User.findById(userid);
+    if (!user) {
+        throw new ApiError(404, "User not found");
+    }
+    user.refreshToken = null;
+    await user.save();
+    // clear cookies    
+    res.clearCookie("accessToken");
+    res.clearCookie("refreshToken");    
+    // return success response
+    res.status(200).json(new ApiResponse(200, {}, "User logged out successfully")); 
+
+
+
+});
+
+
+export {
+    registerUser,
+    loginUser,
+    logoutUser
+};
