@@ -1,3 +1,4 @@
+
 class ApiClient {
     constructor() {
         this.baseUrl = `${import.meta.env.VITE_BACKEND_URL}/recruiternetwork/getall`;

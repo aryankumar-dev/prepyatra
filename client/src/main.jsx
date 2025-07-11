@@ -1,21 +1,17 @@
-import { StrictMode } from 'react';
-import { createRoot } from 'react-dom/client';
-import { BrowserRouter, Routes, Route } from "react-router-dom"; // ✅ Corrected here
-import Login from './components/Auth/Login.jsx';
-import Signup from './components/Auth/Signup.jsx';
-import Checkauth from './components/CheckAuth/Checkauth.jsx';
-import './index.css';
-import App from './App.jsx';
+import { StrictMode } from 'react'
+import { createRoot } from 'react-dom/client'
+import { BrowserRouter, Routes, Route } from "react-router";
+import './index.css'
+import App from './App.jsx'
+import Registration from './components/Auth/Registration.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<App />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Signup />} />
-        <Route path="/checkauth" element={<Checkauth />} />
-      </Routes>
+       <Route path="/" element={<App />} />
+        <Route path="/registration" element={<Registration />} />
+         </Routes>
     </BrowserRouter>
-  </StrictMode>
-);
+  </StrictMode>,
+)
