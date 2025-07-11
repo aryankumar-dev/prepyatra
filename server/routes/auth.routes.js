@@ -4,9 +4,6 @@ import { userRegisterValidator, userLoginValidator } from "../validators/index.j
 import checkUser from "../middlewares/checkuser.middleware.js";
 import { validate } from "../middlewares/validator.middleware.js";
 
-
-
-
 const router = Router();
 // Route to register a new user
 
