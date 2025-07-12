@@ -1,7 +1,7 @@
 
 class ApiClient {
     constructor() {
-        this.baseUrl = `${import.meta.env.VITE_BACKEND_URL}/recruiternetwork/getall`;
+        this.baseUrl = `${import.meta.env.VITE_BACKEND_URL}`;
         this.headers = {
             'Content-Type': 'application/json',
             'Accept': 'application/json',
