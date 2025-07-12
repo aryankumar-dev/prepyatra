@@ -1,60 +1,66 @@
+// src/services/apiClient.js
+import axios from 'axios';
 
 class ApiClient {
-    constructor() {
-        this.baseUrl = `${import.meta.env.VITE_BACKEND_URL}`;
-        this.headers = {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-        };
+  constructor() {
+    this.client = axios.create({
+      baseURL: import.meta.env.VITE_BACKEND_URL, // e.g., http://localhost:3000/api
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      withCredentials: true, // ✅ Important for sending cookies
+    });
+  }
 
+  // 🔁 Generic request method
+  async request(endpoint, options = {}) {
+    const { method = 'GET', data = null, params = null, headers = {} } = options;
+    try {
+      const response = await this.client.request({
+        url: endpoint,
+        method,
+        data,
+        params,
+        headers: {
+          ...this.client.defaults.headers,
+          ...headers,
+        },
+      });
+      return response.data;
+    } catch (error) {
+      throw error.response?.data || error;
     }
+  }
 
-    async customFetch(endpoint, options = {}) {
-        try {
-            const url = `${this.baseUrl}${endpoint}`;
-            const headers = { ...this.headers, ...options.headers };
+  // 👤 Auth routes
+  async signup(fullName, email, password, username) {
+    return this.request('/auth/register', {
+      method: 'POST',
+      data: { fullName, email, password, username },
+    });
+  }
 
-            const config = {
-                ...options,
-                headers,
-                credentials: "include",
-            };
+  async login(email, password) {
+    return this.request('/auth/login', {
+      method: 'POST',
+      data: { email, password },
+    });
+  }
 
-            const response = await fetch(url, config);
-            const data = await response.json();
-            return data;
+  async logout() {
+    return this.request('/auth/logout', {
+      method: 'POST',
+    });
+  }
 
-        }
-        catch (error) {
-            console.error("API Error", error);
-            throw error;
-        }
-    }
-
-    //Auth endpoints
-
-    async signup(fullName, email, password, username) {
-        return this.customFetch("/auth/register", {
-            method: "POST",
-            body: JSON.stringify({ fullName, email, password, username }),
-        });
-    }
-
-    async login(email, password) {
-        return this.customFetch("/auth/login", {
-            method: "POST",
-            body: JSON.stringify({ email, password }),
-        });
-    }
-
-    async logout() {
-        return this.customFetch("/auth/logout", {
-            method: "POST",
-        });
-    }
-
+  // 👤 Check user login for protected routes
+  async getCurrentUser() {
+    return this.request('/auth/me', {
+      method: 'GET',
+    });
+  }
 }
 
 const apiClient = new ApiClient();
-
 export default apiClient;

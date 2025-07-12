@@ -7,6 +7,7 @@ import App from './App.jsx'
 import Registration from './components/Auth/Registration.jsx'
 import Login from './components/Auth/Login.jsx';
 import Dashboard from './components/Auth/Dashboard.jsx';
+import PrivateRoute from './components/Auth/PrivateRoute.jsx'; // ⬅️ Import here
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -15,8 +16,15 @@ createRoot(document.getElementById('root')).render(
         <Route path="/" element={<App />} />
         <Route path="/registration" element={<Registration />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route
+          path="/dashboard"
+          element={
+            <PrivateRoute>
+              <Dashboard />
+            </PrivateRoute>
+          }
+        />
       </Routes>
     </BrowserRouter>
-  </StrictMode>,
-)
+  </StrictMode>
+);
