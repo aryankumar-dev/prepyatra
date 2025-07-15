@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { getChatResponse } from "../api/chat";
+import Nav from '../components/Navbar/Nav.jsx';
+import Footer from '../components/Footer/Footer.jsx';
 import "./ChatBot.css";
 
 const ChatBot = () => {
@@ -18,7 +20,7 @@ const ChatBot = () => {
 
   return (
     <>
-
+<Nav />
     <div className="chat-container">
       <h2 className="chat-heading">PrepYatra <span className="highlight">Intreview Buddy</span></h2>
       <p className="content col-6 mx-auto">
@@ -52,6 +54,7 @@ const ChatBot = () => {
         <button onClick={sendMessage}>Send</button>
       </div>
     </div>
+    <Footer />
     </>
   );
 };
