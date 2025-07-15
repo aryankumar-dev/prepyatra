@@ -1,0 +1,131 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100vw;
+  height: 100vh;
+  background-color: #000;
+  color: #fff;
+  font-family: Arial, sans-serif;
+}
+
+.chat-container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  background-color: #000;
+  color: #fff;
+  box-shadow: 0 0 15px rgba(255, 255, 0, 0.3);
+}
+
+.chat-heading {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 3rem;
+  font-weight: 900;
+}
+
+.highlight {
+  color: yellow;
+}
+
+.chat-box {
+  flex: 1;
+  border: 1px solid yellow;
+  border-radius: 8px;
+  overflow-y: auto;
+  padding: 10px;
+  margin-bottom: 15px;
+  background-color: #111;
+}
+
+.chat-message-row {
+  display: flex;
+  align-items: flex-start;
+  margin: 10px 0;
+}
+
+.chat-message-row.user {
+  flex-direction: row-reverse;
+}
+
+.chat-message {
+  max-width: 70%;
+  padding: 10px;
+  border-radius: 12px;
+  background-color: rgba(67, 40, 239, 0.232);
+  color: white;
+}
+
+.chat-message.user {
+  background-color: rgba(44, 18, 213, 0.232);
+  color: rgb(209 213 219 / var(--tw-text-opacity, 1));
+  text-align: right;
+}
+
+.chat-message.bot {
+   background-color: rgba(40, 10, 232, 0.232);
+   color: rgb(209 213 219 / var(--tw-text-opacity, 1));
+  text-align: left;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin: 0 10px;
+  border: 2px solid yellow;
+}
+
+.input-section {
+  display: flex;
+}
+
+.input-section input {
+  flex: 1;
+  padding: 15px;
+  font-size: 1.1rem;
+  border-radius: 6px;
+  border: 1px solid yellow;
+  margin-right: 10px;
+  background-color: #111;
+  color: #fff;
+}
+
+.input-section input::placeholder {
+  color: #777;
+}
+
+.input-section button {
+  padding: 15px 25px;
+  background-color: yellow;
+  color: #000;
+  font-weight: bold;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.input-section button:hover {
+  background-color: #ffd700;
+}
+
+
+
+.chat-box img{
+    width: 40px;
+}
+
+.content {
+    font-size: 1rem;
+    line-height: 2rem;
+    margin-bottom: 30px;
+    color: rgb(209 213 219 / var(--tw-text-opacity, 1));
+}

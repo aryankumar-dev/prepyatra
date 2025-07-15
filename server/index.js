@@ -7,6 +7,7 @@ import courseRoutes from './routes/cource.routes.js';
 import preplogRoutes from './routes/preplog.routes.js'; 
 import cookieParser from "cookie-parser";
 import recruiterNetworkRoutes from './routes/recruiterNetwork.routes.js'; 
+import chatRoutes from "./routes/chatRoutes.js";
 
 const app = express();
 dotenv.config();
@@ -23,7 +24,7 @@ app.get('/', (req, res) => {
 });
 
 const PORT = process.env.PORT || 3000;
-
+app.use("/api", chatRoutes);
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/courses', courseRoutes);
 app.use('/api/v1/preplogs', preplogRoutes);
