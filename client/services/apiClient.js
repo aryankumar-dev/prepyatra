@@ -60,7 +60,16 @@ class ApiClient {
       method: 'GET',
     });
   }
+
+  async getChatResponse(message) {
+  const res = await axios.post("http://localhost:3000/api/chat", { message });
+  return res.data.reply;
 }
+
+
+}
+
+
 
 const apiClient = new ApiClient();
 export default apiClient;
