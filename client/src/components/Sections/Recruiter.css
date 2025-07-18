@@ -23,12 +23,10 @@
     background-color: #1f2937 !important;
 }
 
-.custonbutton{
-    background-color: rgb(255 207 37 / var(--tw-bg-opacity, 1));
-    padding: 5px 10px ;
-    border-radius: 10px;
-}
+
 .Recruiter-text{
  color: rgb(209 213 219 / var(--tw-text-opacity, 1));
  font-size: 18px;
 }
+
+

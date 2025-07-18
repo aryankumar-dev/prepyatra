@@ -53,22 +53,19 @@ const updatePrepLog = asyncHandler(async (req, res) => {
     res.status(200).json(new ApiResponse(200, prepLog, "Prep log updated successfully"));
 });
 
-const getPrepLogById = asyncHandler(async (req, res) => {
-    const { id } = req.params;
+const getMyPrepLogs = asyncHandler(async (req, res) => {
+    const userId = req.user._id;
 
-    const prepLog = await PrepLog.findById(id);
+    const prepLogs = await PrepLog.find({ userId: userId }).sort({ createdAt: -1 });
 
-    if (!prepLog) {
-        throw new ApiError(404, "Prep log not found");
-    }
+    res.status(200).json(new ApiResponse(200, prepLogs, "Prep logs fetched successfully"));
+});
 
-    res.status(200).json(new ApiResponse(200, prepLog, "Prep log retrieved successfully"));
-}); 
 
 export {
     createPrepLog,
     getPrepLogs,
     deletePrepLog,
     updatePrepLog,
-    getPrepLogById
+    getMyPrepLogs
 };

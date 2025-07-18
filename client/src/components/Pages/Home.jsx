@@ -1,11 +1,36 @@
 import { useState } from "react";
-import Recruiter  from "../Sections/Recruiter.jsx"
-import PrepLogs  from "../Sections/PrepLogs.jsx"
-import Resource  from "../Sections/Resource.jsx"
-import Progress  from "../Sections/Progress.jsx"
+import Recruiter from "../Sections/Recruiter.jsx"
+import PrepLogs from "../Sections/PrepLogs.jsx"
+import Resource from "../Sections/Resource.jsx"
+import Progress from "../Sections/Progress.jsx"
 import './Home.css';
 
 function Home() {
+
+
+
+    const defaultRecruiters = [
+        {
+            name: "Aryan Kumar",
+            company: "Google",
+            appliedFor: "Frontend Developer",
+            email: "aryan@gmail.com",
+            followUpDate: "Today",
+            status: "Contacted",
+        },
+    ];
+
+    const defaultPrepLogs = [
+        {
+            title: "System Design Basics",
+            description: "Studied Load Balancers, Scalability concepts.",
+            timespend: 90,
+            createdAt: new Date().toISOString(),
+        },
+    ];
+
+
+
     return (
         <div>
             <div className="home_nav pt-3 pb-2">
@@ -93,8 +118,9 @@ function Home() {
 
 
             </div>
-            <Recruiter />
-            <PrepLogs />
+            <Recruiter defaultContacts={defaultRecruiters} />
+            <PrepLogs defaultLogs={defaultPrepLogs} />
+
             <Resource />
             <Progress />
 

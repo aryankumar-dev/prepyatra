@@ -10,7 +10,7 @@
 }
 
 .modal-title-custom {
-    color: #fff;
+    color: #000000;
     font-weight: 800;
     font-size: 24px;
     text-align: center;
@@ -44,7 +44,7 @@
 .submit-button {
     width: 100%;
     background-color: rgb(255 207 37 / var(--tw-bg-opacity, 1)) !important;
-    color: #fff !important;
+    color: #000000 !important;
     border: none;
     font-weight: 700;
     font-size: 16px;
@@ -62,4 +62,10 @@
 
 .modal-footer-custom {
     display: none;
+}
+
+
+.recruiter-modal .btn-close {
+    filter: invert(0%) !important; /* Makes it black */
+    opacity: 1;
 }

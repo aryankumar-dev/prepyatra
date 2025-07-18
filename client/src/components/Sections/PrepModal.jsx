@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
+import apiClient from '../../../services/apiClient';
 import './PrepModal.css';
 
 function PrepModal({ show, handleClose }) {
@@ -9,15 +10,24 @@ function PrepModal({ show, handleClose }) {
     const [description, setDescription] = useState('');
     const [timespend, setTimespend] = useState('');
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        console.log({
-            title,
-            description,
-            timespend
-        });
-        handleClose();
+   const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const formData = {
+        title,
+        description,
+        timespend
     };
+
+    try {
+        const response = await apiClient.createPrepLog(formData);
+        console.log("Prep log added successfully:", response);
+        handleClose();
+    } catch (error) {
+        console.error("Error adding prep log:", error);
+    }
+};
+
 
     return (
         <Modal show={show} onHide={handleClose} className="prep-modal">

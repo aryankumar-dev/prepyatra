@@ -4,7 +4,7 @@ import {
     getRecruiterNetwork,
     updateRecruiterNetwork,
     deleteRecruiterNetwork,
-    getRecruiterNetworkById
+    getMyRecruiterNetwork
 } from "../controllers/recruiterNetwork.controllers.js";
 import { recruiterNetworkCreateValidator, recruiterNetworkEditValidator } from "../validators/index.js";
 import { validate } from "../middlewares/validator.middleware.js";
@@ -31,7 +31,10 @@ router.put(
 );
 router.delete("/:id", checkUser, deleteRecruiterNetwork);
 
-router.get("/:id", checkUser, getRecruiterNetworkById);
+
+
+router.get("/my", checkUser, getMyRecruiterNetwork);
+
 
 
 export default router;

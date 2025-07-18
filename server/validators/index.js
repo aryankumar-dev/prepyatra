@@ -141,7 +141,7 @@ const recruiterNetworkCreateValidator = () => {
       .trim()
       .notEmpty()
       .withMessage("Status is required")
-      .isIn(["applied", "interviewing", "offer", "rejected"])
+      .isIn(["screening", "in_progress", "interviewing", "offer_letter" , "rejected"])
       .withMessage("Status must be one of the following: applied, interviewing, offer, rejected"),
     body("followUpDate")
       .optional()     
@@ -205,7 +205,7 @@ const recruiterNetworkEditValidator = () => {
       .trim()
       .notEmpty()
       .withMessage("Status is required")
-      .isIn(["applied", "interviewing", "offer", "rejected"])
+       .isIn(["screening", "in_progress", "interviewing", "offer_letter" , "rejected"])
       .withMessage("Status must be one of the following: applied, interviewing, offer, rejected"),
     body("followUpDate")
       .optional()     

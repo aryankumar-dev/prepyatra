@@ -5,7 +5,7 @@ import {
   createPrepLog,
   updatePrepLog,
   deletePrepLog,
-  getPrepLogById,
+  getMyPrepLogs,
 } from "../controllers/preplog.controllers.js";
 import { preplogCreateValidator, preplogEditValidator } from "../validators/index.js";
 import { validate } from "../middlewares/validator.middleware.js";
@@ -26,6 +26,7 @@ router.put("/:id", preplogEditValidator(), validate,checkUser, updatePrepLog);
 
 router.delete("/:id",checkUser, deletePrepLog);
 
-router.get("/:id",checkUser, getPrepLogById);
+router.get('/my', checkUser, getMyPrepLogs);
+
 
 export default router;

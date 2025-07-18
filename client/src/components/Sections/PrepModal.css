@@ -1,6 +1,6 @@
 .prep-modal .modal-content {
     background-color: #000;
-    color: #fff;
+   color: #000000;
     border: 2px solid rgb(255 207 37 / var(--tw-bg-opacity, 1));
 }
 
@@ -12,10 +12,11 @@
 .prep-modal-header {
     background-color: rgb(255 207 37 / var(--tw-bg-opacity, 1));
     border-bottom: none;
+     color: #000000 !important;
 }
 
 .prep-modal-title {
-    color: #fff;
+    color: #000000;
     font-weight: 800;
     font-size: 24px;
     text-align: center;
@@ -38,7 +39,7 @@
 
 .prep-form-control {
     background-color: #1a1a1a;
-    color: #fff;
+    color: #000000;
     border: 1px solid #333;
 }
 
@@ -49,7 +50,7 @@
 .prep-submit-button {
     width: 100%;
     background-color: rgb(255 207 37 / var(--tw-bg-opacity, 1)) !important;
-    color: #fff !important;
+    color: #000000 !important;
     border: none;
     font-weight: 700;
     font-size: 16px;
@@ -57,5 +58,12 @@
 
 .prep-submit-button:hover {
     background-color: rgba(255, 207, 37, 0.8) !important;
+    
     color: #000 !important;
+}
+
+/* PrepModal.css */
+.prep-modal .btn-close {
+    filter: invert(0%) !important; /* Makes it black */
+    opacity: 1;
 }

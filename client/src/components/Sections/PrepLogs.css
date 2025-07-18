@@ -9,3 +9,24 @@
  background-color: #111827cc !important;
  color: white;
 }
+.prep-card {
+    transition: all 0.3s ease;
+    border-left: 5px solid #ffcc00;
+}
+
+.prep-card:hover {
+    
+    transform: scale(1.02);
+}
+
+
+.heading-textOne{
+    color: rgb(209 213 219 / var(--tw-text-opacity, 1));
+    font-size: 20px;
+}
+
+
+.heading-textTwo{
+        color: rgb(209 213 219 / var(--tw-text-opacity, 1));
+        font-size: 16px;
+}
