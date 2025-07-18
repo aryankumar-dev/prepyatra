@@ -1,6 +1,12 @@
 import { useState } from "react";
+import PrepModal from '../Sections/PrepModal.jsx'
+import Button from 'react-bootstrap/Button';
 import './PrepLogs.css';
 function PrepLogs() {
+        const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
     return (
         <>
             <div className="prep-contactsbox col-10 mx-auto">
@@ -14,7 +20,12 @@ function PrepLogs() {
                             <p>Keep track of your daily prep sessions</p>
                         </div>
                         <div className="heading-button">
-                            <button className="custonbutton">+ Add New Log</button>
+                           
+                             <Button variant="primary" className="custonbutton" onClick={handleShow}>
+                            + Add New Log 
+                           </Button>
+
+                        <PrepModal show={show} handleClose={handleClose} />
                         </div>
                     </div>
                     <div className="cards">
