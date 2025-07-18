@@ -1,0 +1,11 @@
+
+.custonbutton{
+    background-color: rgb(255 207 37 / var(--tw-bg-opacity, 1));
+    padding: 5px 10px ;
+    border-radius: 10px;
+}
+
+.card{
+ background-color: #111827cc !important;
+ color: white;
+}

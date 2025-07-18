@@ -1,4 +1,8 @@
 import { useState } from "react";
+import Recruiter  from "../Sections/Recruiter.jsx"
+import PrepLogs  from "../Sections/PrepLogs.jsx"
+import Resource  from "../Sections/Resource.jsx"
+import Progress  from "../Sections/Progress.jsx"
 import './Home.css';
 
 function Home() {
@@ -89,6 +93,10 @@ function Home() {
 
 
             </div>
+            <Recruiter />
+            <PrepLogs />
+            <Resource />
+            <Progress />
 
             <div className="footer  mx-0 pt-5">
                 <div className="footer-cards d-flex mx-5 mb-5">

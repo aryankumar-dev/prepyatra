@@ -129,3 +129,8 @@ html, body {
     margin-bottom: 30px;
     color: rgb(209 213 219 / var(--tw-text-opacity, 1));
 }
+
+.chat-message p {
+  margin: 5px 0;
+  line-height: 1.6;
+}
