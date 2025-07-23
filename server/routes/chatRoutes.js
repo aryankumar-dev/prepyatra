@@ -5,13 +5,13 @@ const router = express.Router();
 router.post("/chat", async (req, res) => {
   const { message } = req.body;
   if (!message) return res.status(400).json({ error: "Message is required" });
-try {
+  try {
     const reply = await getChatReply(message);
     res.json({ reply });
-} catch (error) {
+  } catch (error) {
     console.error("💥 Gemini Error:", error); // Detailed log
     res.status(500).json({ error: "Something went wrong on the server" });
-}
+  }
 
 
 });

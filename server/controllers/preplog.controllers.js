@@ -37,7 +37,7 @@ const deletePrepLog = asyncHandler(async (req, res) => {
         throw new ApiError(404, "Prep log not found");
     }
 
-    res.status(200).json(new ApiResponse(200, null, "Prep log deleted successfully"));
+    res.status(200).json(new ApiResponse(200, prepLog, "Prep log deleted successfully"));
 });
 
 const updatePrepLog = asyncHandler(async (req, res) => {

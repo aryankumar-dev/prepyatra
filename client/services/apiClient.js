@@ -13,7 +13,7 @@ class ApiClient {
   }
 
   async request(endpoint, options = {}) {
-    const { method = 'GET', data = null, params = null, headers = {} } = options;
+    const { method = 'GET', data, params = null, headers = {} } = options;
     try {
       const response = await this.client.request({
         url: endpoint,
@@ -57,7 +57,7 @@ class ApiClient {
   // ✅ CHAT ROUTE (you are calling directly via axios)
   async getChatResponse(message) {
     const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/chat`, { message });
-    return res.data.reply;
+    return res.data;
   }
 
   // ✅ RECRUITER NETWORK ROUTES
@@ -124,6 +124,8 @@ async getMyRecruiterNetwork() {
       method: 'DELETE',
     });
   }
+
+  
 }
 
 const apiClient = new ApiClient();
