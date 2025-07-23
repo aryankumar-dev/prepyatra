@@ -1,27 +1,15 @@
+// server/controllers/recruiterNetwork.controllers.js
 import { asyncHandler } from "../utils/async-handler.js";
-import  ApiResponse  from "../utils/api-response.js";
-import  ApiError  from "../utils/api-error.js";
+import ApiResponse from "../utils/api-response.js";
+import ApiError from "../utils/api-error.js";
 import { RecruiterNetwork } from "../models/recruiterNetwork.models.js";
 
 const createRecruiterNetwork = asyncHandler(async (req, res) => {
-    const { name, email, phone, company, appliedFor, status, followUpDate, lastInterviewDate, link, comments } = req.body;
-
-    const userId = req.user._id; 
+    const userId = req.user._id;
 
     const recruiterNetwork = await RecruiterNetwork.create({
-
-        name,
-        email,
-        phone,
-        company,
-        appliedFor,
-        status,
-        followUpDate,
-        lastInterviewDate,
-        link,
-        comments,
-        userId
-
+        ...req.body,
+        userId,
     });
 
     if (!recruiterNetwork) {
@@ -34,7 +22,7 @@ const createRecruiterNetwork = asyncHandler(async (req, res) => {
 const getRecruiterNetwork = asyncHandler(async (req, res) => {
     const recruiterNetworks = await RecruiterNetwork.find({ userId: req.user._id });
 
-    if (!recruiterNetworks || recruiterNetworks.length === 0) {
+    if (!recruiterNetworks.length) {
         throw new ApiError(404, "No recruiter network entries found");
     }
 
@@ -43,24 +31,8 @@ const getRecruiterNetwork = asyncHandler(async (req, res) => {
 
 const updateRecruiterNetwork = asyncHandler(async (req, res) => {
     const { id } = req.params;
-    const { name, email, phone, company, appliedFor, status, followUpDate, lastInterviewDate, link, comments } = req.body;
 
-    const recruiterNetwork = await RecruiterNetwork.findByIdAndUpdate(
-        id,
-        {
-            name,
-            email,
-            phone,
-            company,
-            appliedFor,
-            status,
-            followUpDate,
-            lastInterviewDate,
-            link,
-            comments
-        },
-        { new: true }
-    );
+    const recruiterNetwork = await RecruiterNetwork.findByIdAndUpdate(id, req.body, { new: true });
 
     if (!recruiterNetwork) {
         throw new ApiError(404, "Recruiter network entry not found");
@@ -81,16 +53,10 @@ const deleteRecruiterNetwork = asyncHandler(async (req, res) => {
     res.status(200).json(new ApiResponse(200, null, "Recruiter network entry deleted successfully"));
 });
 
-// controllers/recruiterNetwork.controllers.js
-
- const getMyRecruiterNetwork = asyncHandler(async (req, res) => {
-    const userId = req.user.id;
-
-    const recruiterNetwork = await RecruiterNetwork.find({ userId: userId });
-
+const getMyRecruiterNetwork = asyncHandler(async (req, res) => {
+    const recruiterNetwork = await RecruiterNetwork.find({ userId: req.user._id });
     res.status(200).json(new ApiResponse(200, recruiterNetwork, "Recruiter data fetched"));
 });
-
 
 export {
     createRecruiterNetwork,
