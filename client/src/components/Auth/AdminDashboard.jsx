@@ -50,6 +50,7 @@ function AdminDashboard() {
     const [loading, setLoading] = useState(false);
     const [fieldErrors, setFieldErrors] = useState({});
     const [actioningId, setActioningId] = useState(null);
+    const [selectedSections, setSelectedSections] = useState([]);
 
     const fetchAll = () => {
         apiClient.getAdminStats().then((res) => setStats(res.data)).catch((error) => console.error(error));
@@ -132,15 +133,24 @@ function AdminDashboard() {
     };
 
     const statCards = stats ? [
-        { icon: Users, label: "Total Users", value: stats.totalUsers },
-        { icon: GraduationCap, label: "Students", value: stats.totalStudents },
-        { icon: Handshake, label: "Tutors", value: stats.totalTutors },
-        { icon: BookOpen, label: "Courses", value: stats.totalCourses },
-        { icon: Handshake, label: "Appointments", value: stats.totalAppointments },
-        { icon: Handshake, label: "Pending Offers", value: stats.totalOfferedRequests },
-        { icon: Ban, label: "Blocked Users", value: stats.totalBlockedUsers },
-        { icon: MailQuestion, label: "Unblock Requests", value: stats.pendingUnblockRequests },
+        { icon: Users, label: "Total Users", value: stats.totalUsers, section: "users" },
+        { icon: GraduationCap, label: "Students", value: stats.totalStudents, section: "users" },
+        { icon: Handshake, label: "Tutors", value: stats.totalTutors, section: "users" },
+        { icon: BookOpen, label: "Courses", value: stats.totalCourses, section: "courses" },
+        { icon: Handshake, label: "Appointments", value: stats.totalAppointments, section: "appointments" },
+        { icon: Handshake, label: "Open Offers", value: stats.totalOpenRequests, section: "openOffers" },
+        { icon: Handshake, label: "Pending Offers", value: stats.totalOfferedRequests, section: "pendingOffers" },
+        { icon: Ban, label: "Blocked Users", value: stats.totalBlockedUsers, section: "users" },
+        { icon: MailQuestion, label: "Unblock Requests", value: stats.pendingUnblockRequests, section: "unblockRequests" },
     ] : [];
+
+    const handleStatClick = (section) => {
+        setSelectedSections((prev) =>
+            prev.includes(section) ? prev.filter((s) => s !== section) : [...prev, section]
+        );
+    };
+
+    const isSectionVisible = (section) => selectedSections.length === 0 || selectedSections.includes(section);
 
     return (
         <div className="min-h-screen bg-background">
@@ -150,8 +160,15 @@ function AdminDashboard() {
                 <p className="mt-2 text-muted-foreground">Manage courses and monitor platform activity.</p>
 
                 <div className="mt-6 grid gap-4 sm:grid-cols-3 lg:grid-cols-6">
-                    {statCards.map(({ icon: Icon, label, value }) => (
-                        <Card key={label}>
+                    {statCards.map(({ icon: Icon, label, value, section }) => (
+                        <Card
+                            key={label}
+                            role="button"
+                            tabIndex={0}
+                            onClick={() => handleStatClick(section)}
+                            onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") handleStatClick(section); }}
+                            className={`cursor-pointer transition-colors ${selectedSections.includes(section) ? "border-2 border-yellow-500" : ""}`}
+                        >
                             <CardContent className="flex flex-col items-center gap-2 py-6 text-center">
                                 <Icon className="size-6 text-primary" />
                                 <p className="text-2xl font-extrabold">{value}</p>
@@ -161,7 +178,7 @@ function AdminDashboard() {
                     ))}
                 </div>
 
-                <section className="mt-12">
+                {isSectionVisible("courses") && <section className="mt-12">
                     <div className="flex items-center justify-between">
                         <p className="text-2xl font-extrabold text-primary">Courses</p>
                         <Button onClick={() => setShowAddCourse(true)}>
@@ -188,9 +205,9 @@ function AdminDashboard() {
                             </TableBody>
                         </Table>
                     </div>
-                </section>
+                </section>}
 
-                <section className="mt-12">
+                {isSectionVisible("users") && <section className="mt-12">
                     <p className="text-2xl font-extrabold text-primary">All Users</p>
                     <div className="mt-4 overflow-x-auto rounded-xl border border-border">
                         <Table>
@@ -236,9 +253,9 @@ function AdminDashboard() {
                             </TableBody>
                         </Table>
                     </div>
-                </section>
+                </section>}
 
-                <section className="mt-12">
+                {isSectionVisible("openOffers") && <section className="mt-12">
                     <p className="text-2xl font-extrabold text-primary">Open Offers</p>
                     <div className="mt-4 space-y-3">
                         {openOffers.length === 0 && (
@@ -265,9 +282,9 @@ function AdminDashboard() {
                             </Card>
                         ))}
                     </div>
-                </section>
+                </section>}
 
-                <section className="mt-12">
+                {isSectionVisible("pendingOffers") && <section className="mt-12">
                     <p className="text-2xl font-extrabold text-primary">Pending Offers</p>
                     <div className="mt-4 space-y-3">
                         {pendingOffers.length === 0 && (
@@ -294,9 +311,9 @@ function AdminDashboard() {
                             </Card>
                         ))}
                     </div>
-                </section>
+                </section>}
 
-                <section className="mt-12">
+                {isSectionVisible("unblockRequests") && <section className="mt-12">
                     <p className="text-2xl font-extrabold text-primary">Unblock Requests</p>
                     <div className="mt-4 space-y-3">
                         {unblockRequests.length === 0 && (
@@ -334,9 +351,9 @@ function AdminDashboard() {
                             </Card>
                         ))}
                     </div>
-                </section>
+                </section>}
 
-                <section className="mt-12">
+                {isSectionVisible("appointments") && <section className="mt-12">
                     <p className="text-2xl font-extrabold text-primary">Appointments</p>
                     <div className="mt-4 overflow-x-auto rounded-xl border border-border">
                         <Table>
@@ -360,7 +377,7 @@ function AdminDashboard() {
                             </TableBody>
                         </Table>
                     </div>
-                </section>
+                </section>}
             </div>
 
             <Dialog open={showAddCourse} onOpenChange={setShowAddCourse}>
