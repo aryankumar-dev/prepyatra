@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { LogIn, LayoutDashboard, LogOut, Bot, UserCog, ShieldCheck } from "lucide-react";
+import { LogIn, LayoutDashboard, LogOut, Bot, UserCog, ShieldCheck, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button.jsx";
 import { useAuth } from "#context/AuthContext.jsx";
 import ProfileDialog from "#components/Auth/ProfileDialog.jsx";
@@ -10,10 +10,64 @@ function Nav() {
     const location = useLocation();
     const { user, logout } = useAuth();
     const [profileOpen, setProfileOpen] = useState(false);
+    const [menuOpen, setMenuOpen] = useState(false);
 
     const handleLogout = () => {
+        setMenuOpen(false);
         logout().then(() => navigate('/'));
     };
+
+    const goTo = (path) => {
+        setMenuOpen(false);
+        navigate(path);
+    };
+
+    const navButtons = user ? (
+        <>
+            <Button
+                className="w-full justify-start md:w-auto md:justify-center"
+                variant={location.pathname === '/dashboard' ? 'default' : 'outline'}
+                onClick={() => goTo('/dashboard')}
+            >
+                <LayoutDashboard /> Dashboard
+            </Button>
+            <Button
+                className="w-full justify-start md:w-auto md:justify-center"
+                variant={location.pathname === '/chat' ? 'default' : 'outline'}
+                onClick={() => goTo('/chat')}
+            >
+                <Bot /> AI Interview
+            </Button>
+            {user.role === 'admin' && (
+                <Button
+                    className="w-full justify-start md:w-auto md:justify-center"
+                    variant={location.pathname === '/admin' ? 'default' : 'outline'}
+                    onClick={() => goTo('/admin')}
+                >
+                    <ShieldCheck /> Admin
+                </Button>
+            )}
+            <Button
+                className="w-full justify-start md:w-auto md:justify-center"
+                variant="outline"
+                onClick={() => { setMenuOpen(false); setProfileOpen(true); }}
+            >
+                <UserCog /> Profile
+            </Button>
+            <Button
+                className="w-full justify-start md:w-auto md:justify-center"
+                variant="outline"
+                onClick={handleLogout}
+            >
+                <LogOut /> Logout
+            </Button>
+            <ProfileDialog open={profileOpen} onOpenChange={setProfileOpen} />
+        </>
+    ) : (
+        <Button className="w-full md:w-auto" onClick={() => goTo('/login')}>
+            <LogIn /> Login
+        </Button>
+    );
 
     return (
         <header className="sticky top-0 z-40 border-b border-border/60 bg-background/80 backdrop-blur">
@@ -22,44 +76,24 @@ function Nav() {
                     <span className="text-xl font-extrabold text-primary">PrepYatra</span>
                     <p className="text-xs text-muted-foreground">By Aryan Kumar</p>
                 </div>
-                <div className="flex items-center gap-2">
-                    {user ? (
-                        <>
-                            <Button
-                                variant={location.pathname === '/dashboard' ? 'default' : 'outline'}
-                                onClick={() => navigate('/dashboard')}
-                            >
-                                <LayoutDashboard /> Dashboard
-                            </Button>
-                            <Button
-                                variant={location.pathname === '/chat' ? 'default' : 'outline'}
-                                onClick={() => navigate('/chat')}
-                            >
-                                <Bot /> AI Interview
-                            </Button>
-                            {user.role === 'admin' && (
-                                <Button
-                                    variant={location.pathname === '/admin' ? 'default' : 'outline'}
-                                    onClick={() => navigate('/admin')}
-                                >
-                                    <ShieldCheck /> Admin
-                                </Button>
-                            )}
-                            <Button variant="outline" onClick={() => setProfileOpen(true)}>
-                                <UserCog /> Profile
-                            </Button>
-                            <Button variant="outline" onClick={handleLogout}>
-                                <LogOut /> Logout
-                            </Button>
-                            <ProfileDialog open={profileOpen} onOpenChange={setProfileOpen} />
-                        </>
-                    ) : (
-                        <Button onClick={() => navigate('/login')}>
-                            <LogIn /> Login
-                        </Button>
-                    )}
+                <div className="hidden items-center gap-2 md:flex">
+                    {navButtons}
                 </div>
+                <Button
+                    variant="outline"
+                    size="icon"
+                    className="md:hidden"
+                    onClick={() => setMenuOpen((prev) => !prev)}
+                    aria-label={menuOpen ? "Close menu" : "Open menu"}
+                >
+                    {menuOpen ? <X /> : <Menu />}
+                </Button>
             </div>
+            {menuOpen && (
+                <div className="flex flex-col gap-2 border-t border-border/60 px-6 py-3 md:hidden">
+                    {navButtons}
+                </div>
+            )}
         </header>
     )
 }

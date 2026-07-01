@@ -179,7 +179,7 @@ function AdminDashboard() {
                 </div>
 
                 {isSectionVisible("courses") && <section className="mt-12">
-                    <div className="flex items-center justify-between">
+                    <div className="flex flex-wrap items-center justify-between gap-3">
                         <p className="text-2xl font-extrabold text-primary">Courses</p>
                         <Button onClick={() => setShowAddCourse(true)}>
                             <Plus /> Add Course

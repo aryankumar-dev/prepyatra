@@ -75,7 +75,7 @@ function Recruiter() {
             <p className="text-3xl font-extrabold text-primary">📞 Recruiter Contacts</p>
             <p className="mt-2 text-muted-foreground">Never lose track of your valuable recruiter connections.</p>
 
-            <div className="mt-6 flex items-center justify-between">
+            <div className="mt-6 flex flex-wrap items-center justify-between gap-3">
                 <p className="font-bold">{contacts.length} Active Contacts</p>
                 <Button onClick={handleAddShow}>
                     <Plus /> Add New Contact

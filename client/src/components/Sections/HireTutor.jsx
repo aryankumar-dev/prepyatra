@@ -96,7 +96,7 @@ function HireTutor() {
             <p className="text-3xl font-extrabold text-primary">🎓 Hire a Tutor</p>
             <p className="mt-2 text-muted-foreground">Request a tutor for any course — we'll notify you when one is found.</p>
 
-            <div className="mt-6 flex items-center justify-between">
+            <div className="mt-6 flex flex-wrap items-center justify-between gap-3">
                 <p className="font-bold">{requests.length} Requests</p>
                 <Button onClick={() => setShow(true)}>
                     <GraduationCap /> Hire a Tutor

@@ -62,7 +62,7 @@ function PrepLogs() {
             <p className="text-3xl font-extrabold text-primary">📝 Prep Logs</p>
             <p className="mt-2 text-muted-foreground">Track your preparation journey, monitor progress, and never lose sight of your learning goals.</p>
 
-            <div className="mt-6 flex items-center justify-between">
+            <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                 <div>
                     <p className="font-bold">📊 Your Preparation Dashboard</p>
                     <p className="text-sm text-muted-foreground">Keep track of your daily prep sessions</p>
