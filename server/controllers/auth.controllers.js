@@ -1,6 +1,6 @@
 import { asyncHandler } from "#utils/async-handler.js";
-import  ApiResponse  from "#utils/api-response.js";
-import  ApiError  from "#utils/api-error.js";
+import ApiResponse from "#utils/api-response.js";
+import ApiError from "#utils/api-error.js";
 import { User } from "#models/user.models.js";
 
 
@@ -71,8 +71,8 @@ const loginUser = asyncHandler(async (req, res) => {
 
     const cookieOptions = {
         httpOnly: true,
-  secure: true,
-  sameSite: "none",
+        secure: process.env.NODE_ENV === "production",
+        sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
     };
     // set refresh token in cookie
     res.cookie("accessToken", accessToken, cookieOptions);
@@ -107,9 +107,9 @@ const logoutUser = asyncHandler(async (req, res) => {
     await user.save();
     // clear cookies    
     res.clearCookie("accessToken");
-    res.clearCookie("refreshToken");    
+    res.clearCookie("refreshToken");
     // return success response
-    res.status(200).json(new ApiResponse(200, {}, "User logged out successfully")); 
+    res.status(200).json(new ApiResponse(200, {}, "User logged out successfully"));
 
 
 
@@ -117,12 +117,12 @@ const logoutUser = asyncHandler(async (req, res) => {
 
 
 const getCurrentUser = asyncHandler(async (req, res) => {
-  const user = await User.findById(req.user.id).select('-password -refreshToken');
-  if (!user) {
-    throw new ApiError(404, "User not found");
-  }
+    const user = await User.findById(req.user.id).select('-password -refreshToken');
+    if (!user) {
+        throw new ApiError(404, "User not found");
+    }
 
-  res.status(200).json(new ApiResponse(200, { user }, "User authenticated"));
+    res.status(200).json(new ApiResponse(200, { user }, "User authenticated"));
 });
 
 const updateProfile = asyncHandler(async (req, res) => {

@@ -1,132 +1,148 @@
 import axios from 'axios';
 
-class ApiClient {
-  constructor() {
-    this.client = axios.create({
-      baseURL: import.meta.env.VITE_BACKEND_URL, // e.g., http://localhost:3000/api/v1
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-      },
-      withCredentials: true,
-    });
-  }
+const http = axios.create({
+  baseURL: import.meta.env.VITE_API_URL || '',
+  withCredentials: true,
+});
 
-  async request(endpoint, options = {}) {
-    const { method = 'GET', data, params = null, headers = {} } = options;
-    try {
-      const response = await this.client.request({
-        url: endpoint,
-        method,
-        data,
-        params,
-        headers: {
-          ...this.client.defaults.headers,
-          ...headers,
-        },
-      });
-      return response.data;
-    } catch (error) {
-      throw error.response?.data || error;
-    }
-  }
+const apiClient = {
+  register({ fullName, email, password, username, role, courseId }) {
+    return http
+      .post('/api/v1/auth/register', { fullName, email, password, username, role, courseId })
+      .then((res) => res.data);
+  },
 
-  // ✅ AUTH ROUTES
-  async signup(fullName, email, password, username) {
-    return this.request('/auth/register', {
-      method: 'POST',
-      data: { fullName, email, password, username },
-    });
-  }
+  login(email, password) {
+    return http.post('/api/v1/auth/login', { email, password }).then((res) => res.data);
+  },
 
-  async login(email, password) {
-    return this.request('/auth/login', {
-      method: 'POST',
-      data: { email, password },
-    });
-  }
+  logout() {
+    return http.post('/api/v1/auth/logout').then((res) => res.data);
+  },
 
-  async logout() {
-    return this.request('/auth/logout', { method: 'POST' });
-  }
+  getCurrentUser() {
+    return http.get('/api/v1/auth/me').then((res) => res.data);
+  },
 
-  async getCurrentUser() {
-    return this.request('/auth/me', { method: 'GET' });
-  }
+  updateProfile(data) {
+    return http.put('/api/v1/auth/profile', data).then((res) => res.data);
+  },
 
-  // ✅ CHAT ROUTE (you are calling directly via axios)
-  async getChatResponse(message) {
-    const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/chat`, { message });
-    return res.data;
-  }
+  changePassword(currentPassword, newPassword) {
+    return http.put('/api/v1/auth/change-password', { currentPassword, newPassword }).then((res) => res.data);
+  },
 
-  // ✅ RECRUITER NETWORK ROUTES
-  async createRecruiterNetwork(data) {
-    return this.request('/recruiternetwork/create', {
-      method: 'POST',
-      data,
-    });
-  }
+  getMyPrepLogs() {
+    return http.get('/api/v1/preplogs/my').then((res) => res.data);
+  },
 
-  async getAllRecruiterNetworks() {
-    return this.request('/recruiternetwork/getall', {
-      method: 'GET',
-    });
-  }
+  createPrepLog(data) {
+    return http.post('/api/v1/preplogs/', data).then((res) => res.data);
+  },
 
-async getMyRecruiterNetwork() {
-    return this.request(`/recruiternetwork/my`, { method: 'GET' });
-}
+  updatePrepLog(id, data) {
+    return http.put(`/api/v1/preplogs/${id}`, data).then((res) => res.data);
+  },
 
-  async updateRecruiterNetwork(id, data) {
-    return this.request(`/recruiternetwork/${id}`, {
-      method: 'PUT',
-      data,
-    });
-  }
+  deletePrepLog(id) {
+    return http.delete(`/api/v1/preplogs/${id}`).then((res) => res.data);
+  },
 
-  async deleteRecruiterNetwork(id) {
-    return this.request(`/recruiternetwork/${id}`, {
-      method: 'DELETE',
-    });
-  }
+  getMyRecruiterNetwork() {
+    return http.get('/api/v1/recruiternetwork/my').then((res) => res.data);
+  },
 
-  // ✅ PREP LOG ROUTES
-  async createPrepLog(data) {
-    return this.request('/preplogs', {
-      method: 'POST',
-      data,
-    });
-  }
+  createRecruiterNetwork(data) {
+    return http.post('/api/v1/recruiternetwork/create', data).then((res) => res.data);
+  },
 
-  async getAllPrepLogs() {
-    return this.request('/preplogs', {
-      method: 'GET',
-    });
-  }
+  updateRecruiterNetwork(id, data) {
+    return http.put(`/api/v1/recruiternetwork/${id}`, data).then((res) => res.data);
+  },
 
- async getMyPrepLogs() {
-    return this.request('/preplogs/my', {
-        method: 'GET',
-    });
-}
+  deleteRecruiterNetwork(id) {
+    return http.delete(`/api/v1/recruiternetwork/${id}`).then((res) => res.data);
+  },
 
+  getChatResponse(message) {
+    return http.post('/api/chat', { message }).then((res) => res.data.reply);
+  },
 
-  async updatePrepLog(id, data) {
-    return this.request(`/preplogs/${id}`, {
-      method: 'PUT',
-      data,
-    });
-  }
+  getCourses() {
+    return http.get('/api/v1/courses').then((res) => res.data);
+  },
 
-  async deletePrepLog(id) {
-    return this.request(`/preplogs/${id}`, {
-      method: 'DELETE',
-    });
-  }
+  getResourcesByCourse(courseId) {
+    return http.get('/api/v1/resources', { params: { courseId } }).then((res) => res.data);
+  },
 
-  
-}
+  createTuitionRequest(data) {
+    return http.post('/api/v1/tuition-requests', data).then((res) => res.data);
+  },
 
-const apiClient = new ApiClient();
+  getMyTuitionRequests() {
+    return http.get('/api/v1/tuition-requests/my').then((res) => res.data);
+  },
+
+  getOpenTuitionRequests() {
+    return http.get('/api/v1/tuition-requests/open').then((res) => res.data);
+  },
+
+  getMyTutoringJobs() {
+    return http.get('/api/v1/tuition-requests/mine-as-tutor').then((res) => res.data);
+  },
+
+  offerTuition(id, price) {
+    return http.put(`/api/v1/tuition-requests/${id}/offer`, { price }).then((res) => res.data);
+  },
+
+  respondTuition(id, accept) {
+    return http.put(`/api/v1/tuition-requests/${id}/respond`, { accept }).then((res) => res.data);
+  },
+
+  createCourse(data) {
+    return http.post('/api/v1/courses', data).then((res) => res.data);
+  },
+
+  getAdminStats() {
+    return http.get('/api/v1/admin/stats').then((res) => res.data);
+  },
+
+  getAdminUsers() {
+    return http.get('/api/v1/admin/users').then((res) => res.data);
+  },
+
+  getAdminAppointments() {
+    return http.get('/api/v1/admin/appointments').then((res) => res.data);
+  },
+
+  blockUser(id) {
+    return http.put(`/api/v1/admin/users/${id}/block`).then((res) => res.data);
+  },
+
+  unblockUser(id) {
+    return http.put(`/api/v1/admin/users/${id}/unblock`).then((res) => res.data);
+  },
+
+  getPendingOffers() {
+    return http.get('/api/v1/admin/pending-offers').then((res) => res.data);
+  },
+
+  getOpenOffers() {
+    return http.get('/api/v1/admin/open-offers').then((res) => res.data);
+  },
+
+  getUnblockRequests() {
+    return http.get('/api/v1/admin/unblock-requests').then((res) => res.data);
+  },
+
+  denyUnblockRequest(id) {
+    return http.put(`/api/v1/admin/unblock-requests/${id}/deny`).then((res) => res.data);
+  },
+
+  submitUnblockRequest(email, message) {
+    return http.post('/api/v1/unblock-requests', { email, message }).then((res) => res.data);
+  },
+};
+
 export default apiClient;
