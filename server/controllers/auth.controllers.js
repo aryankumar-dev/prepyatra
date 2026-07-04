@@ -71,7 +71,8 @@ const loginUser = asyncHandler(async (req, res) => {
 
     const cookieOptions = {
         httpOnly: true,
-
+  secure: true,
+  sameSite: "none",
     };
     // set refresh token in cookie
     res.cookie("accessToken", accessToken, cookieOptions);
