@@ -15,8 +15,16 @@ import unblockRequestRoutes from "#routes/unblockRequest.routes.js";
 
 const app = express();
 dotenv.config();
+
+const previewOriginPattern = /^https:\/\/prepyatra-[a-z0-9-]+-aryankumar-devs-projects\.vercel\.app$/;
+
 app.use(cors({
-  origin:  process.env.CLIENT_URL,
+  origin: (origin, callback) => {
+    if (!origin || origin === process.env.CLIENT_URL || previewOriginPattern.test(origin)) {
+      return callback(null, true);
+    }
+    return callback(new Error("Not allowed by CORS"));
+  },
   credentials: true,
 }));
 
