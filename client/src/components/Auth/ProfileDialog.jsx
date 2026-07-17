@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useState } from 'react';
 import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
@@ -19,8 +21,8 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select.jsx";
-import apiClient from '#services/apiClient';
-import { useAuth } from '#context/AuthContext.jsx';
+import apiClient from '@/services/apiClient';
+import { useAuth } from '@/context/AuthContext.jsx';
 import { getErrorMessage, getFieldErrors } from '@/lib/form-errors.js';
 
 function ProfileDialog({ open, onOpenChange }) {
@@ -154,7 +156,7 @@ function ProfileDialog({ open, onOpenChange }) {
 
                             {user?.role !== 'tutor' && (
                                 <div className="space-y-2">
-                                    <Label>Course you're preparing for</Label>
+                                    <Label>Course you&apos;re preparing for</Label>
                                     <Select value={courseId} onValueChange={setCourseId}>
                                         <SelectTrigger className="w-full">
                                             <SelectValue placeholder="Select a course" />

@@ -1,11 +1,21 @@
-import { Navigate } from 'react-router-dom';
-import { useAuth } from '#context/AuthContext.jsx';
+"use client";
+
+import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { useAuth } from '@/context/AuthContext.jsx';
 import { Skeleton } from "@/components/ui/skeleton.jsx";
 
 const PrivateRoute = ({ children }) => {
   const { user, loading } = useAuth();
+  const router = useRouter();
 
-  if (loading) {
+  useEffect(() => {
+    if (!loading && !user) {
+      router.replace('/login');
+    }
+  }, [loading, user, router]);
+
+  if (loading || !user) {
     return (
       <div className="flex min-h-screen flex-col items-center justify-center gap-3 bg-background px-6">
         <Skeleton className="h-10 w-64" />
@@ -13,7 +23,6 @@ const PrivateRoute = ({ children }) => {
       </div>
     );
   }
-  if (!user) return <Navigate to="/login" replace />;
   return children;
 };
 

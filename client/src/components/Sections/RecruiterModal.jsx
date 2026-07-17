@@ -1,3 +1,5 @@
+"use client";
+
 import { useState, useEffect } from 'react';
 import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
@@ -18,7 +20,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select.jsx";
-import apiClient from '#services/apiClient';
+import apiClient from '@/services/apiClient';
 import { getErrorMessage, getFieldErrors } from '@/lib/form-errors.js';
 
 const AvailableStatus = [

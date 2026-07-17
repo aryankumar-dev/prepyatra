@@ -1,11 +1,13 @@
+"use client";
+
 import { useState } from "react";
 import { Send, Bot, User } from "lucide-react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar.jsx";
 import { Input } from "@/components/ui/input.jsx";
 import { Button } from "@/components/ui/button.jsx";
-import apiClient from "#services/apiClient.js";
-import Nav from '#components/Navbar/Nav.jsx';
-import Footer from '#components/Footer/Footer.jsx';
+import apiClient from "@/services/apiClient.js";
+import Nav from '@/components/Navbar/Nav.jsx';
+import Footer from '@/components/Footer/Footer.jsx';
 
 const ChatBot = () => {
   const [messages, setMessages] = useState([]);

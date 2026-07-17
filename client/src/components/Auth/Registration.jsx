@@ -1,5 +1,7 @@
+"use client";
+
 import { useEffect, useState } from 'react'
-import { useNavigate } from "react-router-dom";
+import { useRouter } from "next/navigation";
 import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card.jsx";
@@ -13,7 +15,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select.jsx";
-import apiClient from '#services/apiClient';
+import apiClient from '@/services/apiClient';
 import { getErrorMessage, getFieldErrors } from '@/lib/form-errors.js';
 
 function Registration() {
@@ -27,7 +29,7 @@ function Registration() {
     const [courses, setCourses] = useState([]);
     const [loading, setLoading] = useState(false);
     const [fieldErrors, setFieldErrors] = useState({});
-    const navigate = useNavigate();
+    const router = useRouter();
 
     useEffect(() => {
         apiClient.getCourses()
@@ -48,7 +50,7 @@ function Registration() {
                 setEmail("");
                 setPassword("");
                 setUsername("");
-                navigate('/login');
+                router.push('/login');
             })
             .catch((err) => {
                 setLoading(false);
@@ -133,7 +135,7 @@ function Registration() {
 
                         {role === 'student' && (
                             <div className="space-y-2">
-                                <Label>Course you're preparing for</Label>
+                                <Label>Course you&apos;re preparing for</Label>
                                 <Select value={courseId} onValueChange={setCourseId}>
                                     <SelectTrigger className="w-full">
                                         <SelectValue placeholder="Select a course" />
@@ -155,7 +157,7 @@ function Registration() {
 
                         <p className="text-center text-sm text-muted-foreground">
                             Already have an account?{" "}
-                            <span className="cursor-pointer font-semibold text-primary hover:underline" onClick={() => navigate('/login')}>
+                            <span className="cursor-pointer font-semibold text-primary hover:underline" onClick={() => router.push('/login')}>
                                 Login
                             </span>
                         </p>

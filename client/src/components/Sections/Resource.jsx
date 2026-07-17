@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { ExternalLink, PlayCircle, FileText, Target, GraduationCap, Loader2 } from "lucide-react";
@@ -11,8 +13,8 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select.jsx";
-import apiClient from '#services/apiClient';
-import { useAuth } from '#context/AuthContext.jsx';
+import apiClient from '@/services/apiClient';
+import { useAuth } from '@/context/AuthContext.jsx';
 import { getErrorMessage } from '@/lib/form-errors.js';
 
 const TYPE_ICON = {
@@ -61,13 +63,13 @@ function Resource() {
     return (
         <section className="mx-auto max-w-6xl px-6 py-10">
             <p className="text-3xl font-extrabold text-primary">🔄 Resources for Your Course</p>
-            <p className="mt-2 text-muted-foreground">Hand-picked resources based on the course you're preparing for.</p>
+            <p className="mt-2 text-muted-foreground">Hand-picked resources based on the course you&apos;re preparing for.</p>
 
             {!user?.courseId ? (
                 <Card className="mt-6">
                     <CardContent className="flex flex-col items-center gap-3 py-10 text-center">
                         <p className="font-bold">Select a course to see resources</p>
-                        <p className="text-muted-foreground">Pick the course you're preparing for and we'll show tailored resources here.</p>
+                        <p className="text-muted-foreground">Pick the course you&apos;re preparing for and we&apos;ll show tailored resources here.</p>
                         <div className="mt-2 flex w-full max-w-sm flex-col gap-2 sm:flex-row">
                             <Select value={courseId} onValueChange={setCourseId}>
                                 <SelectTrigger className="w-full">

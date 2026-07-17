@@ -1,5 +1,7 @@
+"use client";
+
 import { useEffect, useState } from "react";
-import { Navigate } from "react-router-dom";
+import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { Users, GraduationCap, BookOpen, Handshake, Plus, Loader2, Ban, ShieldCheck, MailQuestion, Check, X } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card.jsx";
@@ -23,10 +25,10 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table.jsx";
-import Nav from '#components/Navbar/Nav.jsx';
-import Footer from '#components/Footer/Footer.jsx';
-import apiClient from '#services/apiClient';
-import { useAuth } from '#context/AuthContext.jsx';
+import Nav from '@/components/Navbar/Nav.jsx';
+import Footer from '@/components/Footer/Footer.jsx';
+import apiClient from '@/services/apiClient';
+import { useAuth } from '@/context/AuthContext.jsx';
 import { getErrorMessage, getFieldErrors } from '@/lib/form-errors.js';
 
 const ROLE_VARIANT = {
@@ -37,6 +39,7 @@ const ROLE_VARIANT = {
 
 function AdminDashboard() {
     const { user, loading: authLoading } = useAuth();
+    const router = useRouter();
     const [stats, setStats] = useState(null);
     const [users, setUsers] = useState([]);
     const [appointments, setAppointments] = useState([]);
@@ -66,8 +69,13 @@ function AdminDashboard() {
         if (user?.role === 'admin') fetchAll();
     }, [user?.role]);
 
-    if (authLoading) return null;
-    if (!user || user.role !== 'admin') return <Navigate to="/dashboard" replace />;
+    useEffect(() => {
+        if (!authLoading && (!user || user.role !== 'admin')) {
+            router.replace('/dashboard');
+        }
+    }, [authLoading, user, router]);
+
+    if (authLoading || !user || user.role !== 'admin') return null;
 
     const handleAddCourse = async (e) => {
         e.preventDefault();

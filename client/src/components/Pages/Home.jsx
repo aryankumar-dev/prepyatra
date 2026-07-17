@@ -1,9 +1,11 @@
-import { useNavigate } from "react-router-dom";
+"use client";
+
+import { useRouter } from "next/navigation";
 import { Users, BookOpen, Share2, Bot, Rocket } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card.jsx";
 import { Button } from "@/components/ui/button.jsx";
-import Nav from "#components/Navbar/Nav.jsx";
-import Footer from "#components/Footer/Footer.jsx";
+import Nav from "@/components/Navbar/Nav.jsx";
+import Footer from "@/components/Footer/Footer.jsx";
 
 const heroFeatures = [
     { icon: Users, title: "Recruiter Network", desc: "Build and manage your professional recruiter contacts database" },
@@ -19,7 +21,7 @@ const detailFeatures = [
 ];
 
 function Home() {
-    const navigate = useNavigate();
+    const router = useRouter();
 
     return (
         <div>
@@ -34,7 +36,7 @@ function Home() {
                     The ultimate community platform for job hunters to store recruiter contacts, share prep logs, and crowdsource resources together.{" "}
                     <span className="text-primary">Your journey to success starts here!</span>
                 </p>
-                <Button size="lg" className="mt-8" onClick={() => navigate('/registration')}>
+                <Button size="lg" className="mt-8" onClick={() => router.push('/registration')}>
                     <Rocket /> Start Your Journey Free
                 </Button>
 

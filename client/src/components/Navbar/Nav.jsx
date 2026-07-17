@@ -1,39 +1,41 @@
+"use client";
+
 import { useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useRouter, usePathname } from "next/navigation";
 import { LogIn, LayoutDashboard, LogOut, Bot, UserCog, ShieldCheck, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button.jsx";
-import { useAuth } from "#context/AuthContext.jsx";
-import ProfileDialog from "#components/Auth/ProfileDialog.jsx";
+import { useAuth } from "@/context/AuthContext.jsx";
+import ProfileDialog from "@/components/Auth/ProfileDialog.jsx";
 
 function Nav() {
-    const navigate = useNavigate();
-    const location = useLocation();
+    const router = useRouter();
+    const pathname = usePathname();
     const { user, logout } = useAuth();
     const [profileOpen, setProfileOpen] = useState(false);
     const [menuOpen, setMenuOpen] = useState(false);
 
     const handleLogout = () => {
         setMenuOpen(false);
-        logout().then(() => navigate('/'));
+        logout().then(() => router.push('/'));
     };
 
     const goTo = (path) => {
         setMenuOpen(false);
-        navigate(path);
+        router.push(path);
     };
 
     const navButtons = user ? (
         <>
             <Button
                 className="w-full justify-start md:w-auto md:justify-center"
-                variant={location.pathname === '/dashboard' ? 'default' : 'outline'}
+                variant={pathname === '/dashboard' ? 'default' : 'outline'}
                 onClick={() => goTo('/dashboard')}
             >
                 <LayoutDashboard /> Dashboard
             </Button>
             <Button
                 className="w-full justify-start md:w-auto md:justify-center"
-                variant={location.pathname === '/chat' ? 'default' : 'outline'}
+                variant={pathname === '/chat' ? 'default' : 'outline'}
                 onClick={() => goTo('/chat')}
             >
                 <Bot /> AI Interview
@@ -41,7 +43,7 @@ function Nav() {
             {user.role === 'admin' && (
                 <Button
                     className="w-full justify-start md:w-auto md:justify-center"
-                    variant={location.pathname === '/admin' ? 'default' : 'outline'}
+                    variant={pathname === '/admin' ? 'default' : 'outline'}
                     onClick={() => goTo('/admin')}
                 >
                     <ShieldCheck /> Admin

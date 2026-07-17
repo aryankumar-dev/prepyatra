@@ -1,8 +1,10 @@
+"use client";
+
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { Flame, Clock, NotebookPen, CalendarCheck } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card.jsx";
-import apiClient from '#services/apiClient';
+import apiClient from '@/services/apiClient';
 import { PREP_LOGS_UPDATED } from "@/lib/events.js";
 
 function computeStreak(logs) {

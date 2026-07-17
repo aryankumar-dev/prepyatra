@@ -1,10 +1,10 @@
 # PrepYatra
 
-PrepYatra is a full-stack platform for exam/placement preparation — course resources, prep logs, a recruiter network, tuition requests, and an AI chatbot assistant. It's built as a React (Vite) client backed by an Express + MongoDB API.
+PrepYatra is a full-stack platform for exam/placement preparation — course resources, prep logs, a recruiter network, tuition requests, and an AI chatbot assistant. It's built as a Next.js (App Router) client backed by an Express + MongoDB API.
 
 ## Tech Stack
 
-**Client** — React 19, Vite, React Router, Tailwind CSS 4, Radix UI / shadcn, Axios
+**Client** — Next.js 16 (App Router), React 19, Tailwind CSS 4, Radix UI / shadcn, Axios
 
 **Server** — Node.js, Express 5, MongoDB (Mongoose), JWT auth (access + refresh tokens), Nodemailer, Google Gemini (`@google/genai`) for the chatbot
 
@@ -12,8 +12,9 @@ PrepYatra is a full-stack platform for exam/placement preparation — course res
 
 ```
 prepyatra-main/
-├── client/          # React frontend (Vite)
+├── client/          # Next.js frontend (App Router)
 │   └── src/
+│       ├── app/           # Route segments (page.js per route) + root layout/providers
 │       ├── components/   # Auth, Navbar, Footer, Pages, Sections, ui
 │       ├── context/       # AuthContext
 │       ├── services/      # API client (Axios)
@@ -28,6 +29,19 @@ prepyatra-main/
     ├── utils/            # Error/response helpers, mailer, constants
     └── validators/       # Request validation
 ```
+
+### Routes
+
+| Path            | Renders                       | Access    |
+| ---------------- | ------------------------------ | --------- |
+| `/`               | Home / landing page             | public    |
+| `/registration`   | Sign up                         | public    |
+| `/login`          | Log in                          | public    |
+| `/chat`           | AI interview chatbot            | public    |
+| `/dashboard`      | User dashboard                  | logged in |
+| `/admin`          | Admin dashboard                 | admin     |
+
+Protected routes (`/dashboard`, `/admin`) are gated client-side by `PrivateRoute` (`client/src/components/Auth/PrivateRoute.jsx`), which redirects to `/login` if there's no authenticated user.
 
 ## Getting Started
 
@@ -61,7 +75,7 @@ ACCESS_TOKEN_EXPIRY=15m
 REFRESH_TOKEN_EXPIRY=7d
 
 NODE_ENV=development
-CLIENT_URL=http://localhost:5173
+CLIENT_URL=http://localhost:3001
 
 EMAIL_HOST=smtp.example.com
 EMAIL_PORT=587
@@ -73,11 +87,10 @@ EMAIL_FROM_ADDRESS=no-reply@example.com
 ADMIN_EMAIL=admin@example.com
 ```
 
-Create a `.env` file in `client/`:
+Create a `.env.local` file in `client/`:
 
 ```
-VITE_API_URL=http://localhost:3000/api/v1
-VITE_BACKEND_URL=http://localhost:3000
+NEXT_PUBLIC_API_URL=http://localhost:3000
 ```
 
 ### 3. Run the app
@@ -90,7 +103,7 @@ cd server && npm run dev
 cd client && npm run dev
 ```
 
-The client runs on `http://localhost:5173` and the server on `http://localhost:3000` by default.
+The client runs on `http://localhost:3001` and the server on `http://localhost:3000` by default (the client's dev/start scripts pin port 3001 so they don't collide with the backend's default port 3000).
 
 ## API Overview
 
@@ -115,9 +128,9 @@ All backend routes are mounted under `/api/v1`:
 - `npm start` — start in production mode
 
 **Client** (`client/`)
-- `npm run dev` — start Vite dev server
+- `npm run dev` — start Next.js dev server (port 3001)
 - `npm run build` — production build
-- `npm run preview` — preview production build
+- `npm start` — start production server (port 3001)
 - `npm run lint` — run ESLint
 
 ## License

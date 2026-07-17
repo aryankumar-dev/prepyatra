@@ -1,10 +1,12 @@
-import { useNavigate } from "react-router-dom";
+"use client";
+
+import { useRouter } from "next/navigation";
 import { Bot, ArrowRight } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card.jsx";
 import { Button } from "@/components/ui/button.jsx";
 
 function AiInterview() {
-    const navigate = useNavigate();
+    const router = useRouter();
 
     return (
         <section className="mx-auto max-w-6xl px-6 py-10">
@@ -22,7 +24,7 @@ function AiInterview() {
                             <p className="text-sm text-muted-foreground">Ask interview questions and get instant AI feedback, anytime.</p>
                         </div>
                     </div>
-                    <Button onClick={() => navigate('/chat')}>
+                    <Button onClick={() => router.push('/chat')}>
                         Start Chatting <ArrowRight />
                     </Button>
                 </CardContent>

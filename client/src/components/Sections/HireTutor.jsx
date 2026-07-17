@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { GraduationCap, Loader2, Check, X } from "lucide-react";
@@ -20,8 +22,8 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select.jsx";
-import apiClient from '#services/apiClient';
-import { useAuth } from '#context/AuthContext.jsx';
+import apiClient from '@/services/apiClient';
+import { useAuth } from '@/context/AuthContext.jsx';
 import { getErrorMessage } from '@/lib/form-errors.js';
 
 const STATUS_VARIANT = {
@@ -94,7 +96,7 @@ function HireTutor() {
     return (
         <section className="mx-auto max-w-6xl px-6 py-10">
             <p className="text-3xl font-extrabold text-primary">🎓 Hire a Tutor</p>
-            <p className="mt-2 text-muted-foreground">Request a tutor for any course — we'll notify you when one is found.</p>
+            <p className="mt-2 text-muted-foreground">Request a tutor for any course — we&apos;ll notify you when one is found.</p>
 
             <div className="mt-6 flex flex-wrap items-center justify-between gap-3">
                 <p className="font-bold">{requests.length} Requests</p>
@@ -148,7 +150,7 @@ function HireTutor() {
                     <DialogHeader>
                         <DialogTitle>Hire a Tutor</DialogTitle>
                         <DialogDescription>
-                            Pick a course and we'll find a tutor for you.
+                            Pick a course and we&apos;ll find a tutor for you.
                         </DialogDescription>
                     </DialogHeader>
                     <form className="space-y-4" onSubmit={handleSubmit}>

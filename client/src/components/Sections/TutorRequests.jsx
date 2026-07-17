@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { Loader2, HandCoins, CheckCircle2 } from "lucide-react";
@@ -13,7 +15,7 @@ import { Button } from "@/components/ui/button.jsx";
 import { Input } from "@/components/ui/input.jsx";
 import { Label } from "@/components/ui/label.jsx";
 import { Badge } from "@/components/ui/badge.jsx";
-import apiClient from '#services/apiClient';
+import apiClient from '@/services/apiClient';
 import { getErrorMessage } from '@/lib/form-errors.js';
 
 function TutorRequests() {
@@ -103,7 +105,7 @@ function TutorRequests() {
                                 {req.message && <p className="mt-1 text-sm">{req.message}</p>}
                             </div>
                             <Button onClick={() => setSelected(req)}>
-                                <HandCoins /> I'm Interested
+                                <HandCoins /> I&apos;m Interested
                             </Button>
                         </CardContent>
                     </Card>

@@ -87,16 +87,6 @@ const COURSES = [
             { title: "GeeksforGeeks - DSA", url: "https://www.geeksforgeeks.org/data-structures/", type: "article" },
         ],
     },
-    {
-        title: "Cloud Computing (AWS)",
-        description: "AWS core services, cloud architecture, and certifications.",
-        resources: [
-            { title: "roadmap.sh - AWS Roadmap", url: "https://roadmap.sh/aws", type: "practice" },
-            { title: "AWS Documentation", url: "https://docs.aws.amazon.com/", type: "article" },
-            { title: "AWS Skill Builder (Free Training)", url: "https://skillbuilder.aws/", type: "course" },
-            { title: "freeCodeCamp - AWS Certified Cloud Practitioner", url: "https://www.freecodecamp.org/news/tag/aws/", type: "video" },
-        ],
-    },
 ];
 
 async function seed() {

@@ -1,10 +1,12 @@
+"use client";
+
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { Pencil, Trash2, Plus, Clock, Calendar } from "lucide-react";
-import PrepModal from '#components/Sections/PrepModal.jsx';
+import PrepModal from '@/components/Sections/PrepModal.jsx';
 import { Button } from "@/components/ui/button.jsx";
 import { Card, CardContent } from "@/components/ui/card.jsx";
-import apiClient from '#services/apiClient';
+import apiClient from '@/services/apiClient';
 import { PREP_LOGS_UPDATED } from "@/lib/events.js";
 
 function PrepLogs() {

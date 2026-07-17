@@ -1,7 +1,9 @@
+"use client";
+
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { Mail, Phone, Pencil, Trash2, Plus } from "lucide-react";
-import RecruiterModal from '#components/Sections/RecruiterModal.jsx';
+import RecruiterModal from '@/components/Sections/RecruiterModal.jsx';
 import { Button } from "@/components/ui/button.jsx";
 import { Badge } from "@/components/ui/badge.jsx";
 import {
@@ -12,7 +14,7 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table.jsx";
-import apiClient from '#services/apiClient';
+import apiClient from '@/services/apiClient';
 
 const STATUS_VARIANT = {
     screening: "secondary",

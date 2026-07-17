@@ -1,3 +1,5 @@
+"use client";
+
 import { useState, useEffect } from 'react';
 import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
@@ -11,7 +13,7 @@ import { Button } from "@/components/ui/button.jsx";
 import { Input } from "@/components/ui/input.jsx";
 import { Label } from "@/components/ui/label.jsx";
 import { Textarea } from "@/components/ui/textarea.jsx";
-import apiClient from '#services/apiClient';
+import apiClient from '@/services/apiClient';
 import { getErrorMessage, getFieldErrors } from '@/lib/form-errors.js';
 
 function PrepModal({ show, handleClose, editMode, log }) {

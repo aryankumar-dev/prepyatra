@@ -1,5 +1,7 @@
+"use client";
+
 import { useState } from 'react'
-import { useNavigate } from "react-router-dom";
+import { useRouter } from "next/navigation";
 import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card.jsx";
@@ -14,8 +16,8 @@ import {
     DialogTitle,
     DialogDescription,
 } from "@/components/ui/dialog.jsx";
-import apiClient from '#services/apiClient';
-import { useAuth } from '#context/AuthContext.jsx';
+import apiClient from '@/services/apiClient';
+import { useAuth } from '@/context/AuthContext.jsx';
 import { getErrorMessage, getFieldErrors } from '@/lib/form-errors.js';
 
 function Login() {
@@ -28,7 +30,7 @@ function Login() {
     const [showReview, setShowReview] = useState(false);
     const [reviewMessage, setReviewMessage] = useState('');
     const [reviewLoading, setReviewLoading] = useState(false);
-    const navigate = useNavigate();
+    const router = useRouter();
     const { refresh } = useAuth();
 
     function handleSubmit(e) {
@@ -44,7 +46,7 @@ function Login() {
                 setEmail("");
                 setPassword("");
                 await refresh();
-                navigate('/dashboard');
+                router.push('/dashboard');
             })
             .catch((err) => {
                 setLoading(false);
@@ -118,8 +120,8 @@ function Login() {
                         )}
 
                         <p className="text-center text-sm text-muted-foreground">
-                            Don't have an account?{" "}
-                            <span className="cursor-pointer font-semibold text-primary hover:underline" onClick={() => navigate('/registration')}>
+                            Don&apos;t have an account?{" "}
+                            <span className="cursor-pointer font-semibold text-primary hover:underline" onClick={() => router.push('/registration')}>
                                 Create account
                             </span>
                         </p>
